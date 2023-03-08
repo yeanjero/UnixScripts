@@ -1,0 +1,25 @@
+#account_list.csv
+user_id,office,account
+10000001  721 986282
+10000002  253 983464
+
+#account_details.csv
+user_id account_id  office  account name
+10000001  2023-01-01.00.01.12345  721 986282
+10000002  2022-02-02.00.01.32134  253 983464
+10000003  2000-01-05.11.12.74826  737 912390
+
+#awk_file_lookup.sh
+
+work_dir=/var/tmp
+account_list_file=${work_dir}/account_list.csv
+account_details_file=${work_dir}/account_details.csv
+
+# Check the accounts from account_list.csv which are present on account_details.csv
+
+awk 'FNR==NR {a[$1]++; next} ($1 in a) {print $1","substr($3,1,26)}' > account_list_details.csv
+
+# {a[$1]++;next} this stores first column value to array a account_list.csv
+# ($1 in a) $1 is the 1st column of the current row read from account_details.csv
+# ($1 in a) a is the array value from account_list.csv
+# {print $0} where $0 is the row from account_list.csv

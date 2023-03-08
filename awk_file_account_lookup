@@ -17,7 +17,7 @@ account_details_file=${work_dir}/account_details.csv
 
 # Check the accounts from account_list.csv which are present on account_details.csv
 
-awk 'FNR==NR {a[$1]++; next} ($1 in a) {print $1","substr($3,1,26)}' > account_list_details.csv
+awk 'FNR==NR {a[$1]++; next} ($1 in a) {print $1","substr($3,1,26)}' account_list_file account_details_file > account_list_details.csv
 
 # {a[$1]++;next} this stores first column value to array a account_list.csv
 # ($1 in a) $1 is the 1st column of the current row read from account_details.csv
